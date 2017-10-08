@@ -1,4 +1,4 @@
-function [psidot, d] = carrotLine(Wi, Wii, p, psi, del, va, k, Rmin, vw, psiw)
+function [psidot, d] = carrotLine(Wi, Wii, p, psi, del, va, k, Rmin, vw, psiw, cond)
 
 % % Wi = [0, 0];
 % % Wii = [300, 300];
@@ -10,6 +10,10 @@ function [psidot, d] = carrotLine(Wi, Wii, p, psi, del, va, k, Rmin, vw, psiw)
 % % Rmin = 3*va;
 % % vw = 0;
 % % psiw = 0;
+
+if cond
+    cond
+end
 
 
 Ru = pdist([Wi;p]);

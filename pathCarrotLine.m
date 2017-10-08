@@ -3,7 +3,7 @@ clc; close all;  clear;
 W = [0 0;
     300 300;
     300 600];
-%     800 1000];
+%   800 1000];
 
 p = [100,0]; % current position of drone
 pinit = p;
@@ -28,15 +28,18 @@ hold on
  
 
 for i=2:size(W,1) % loop through all rows of waypoint array
+    if i >= 3
+        i
+    end
     targetWaypoint = W(i,:); % select next waypoint
     distanceToGoal = norm(p - targetWaypoint);
     jj = 1;
     while(distanceToGoal > goalRadius) %jj<6000
-        [psidot, d] = carrotLine(W(i-1,:), W(i,:), p, psi, del, va, k, Rmin, vw, psiw);
+        [psidot, d] = carrotLine(W(i-1,:), W(i,:), p, psi, del, va, k, Rmin, vw, psiw, i>=3);
         dis = [dis;d];
         [psi,p] = updatePosition(p(1), p(2), va, psi, psidot, 0.01);
         pos = [pos;p];
-        plot(p(1), p(2), 'r')
+        plot(p(1), p(2), 'rx')
         hold on
         distanceToGoal = norm(p - targetWaypoint);
         jj = jj+1;
@@ -44,8 +47,8 @@ for i=2:size(W,1) % loop through all rows of waypoint array
 end
 
 
-% plot(pos(:,1), pos(:,2))
-% hold on
+%  plot(pos(:,1), pos(:,2))
+%  hold on
 
 
 %figure(2)
