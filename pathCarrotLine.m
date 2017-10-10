@@ -1,9 +1,10 @@
 clc; close all;  clear;
 % define array of all waypoints
-W = [0 0;
-    300 300;
-    300 600];
-%   800 1000];
+
+ W = [0 0;
+     300 300;
+    300 600;
+   800 1000];
 
 p = [100,0]; % current position of drone
 pinit = p;
@@ -21,34 +22,31 @@ psiw = 0; % Wind direction
 figure(1)
 plot(W(:,1), W(:,2),'k--d')
 hold on
-xlim([0 900])
+xlim([-50 900])
 ylim([-100 1100])
 plot(pinit(1),pinit(2),'ro')
 hold on
  
 
 for i=2:size(W,1) % loop through all rows of waypoint array
-    if i >= 3
-        i
-    end
     targetWaypoint = W(i,:); % select next waypoint
     distanceToGoal = norm(p - targetWaypoint);
-    jj = 1;
-    while(distanceToGoal > goalRadius) %jj<6000
-        [psidot, d] = carrotLine(W(i-1,:), W(i,:), p, psi, del, va, k, Rmin, vw, psiw, i>=3);
+    %jj = 1;
+    while(distanceToGoal > goalRadius) %    jj<6000
+        [psidot, d] = carrotLine(W(i-1,:), W(i,:), p, psi, del, va, k, Rmin, vw, psiw);
         dis = [dis;d];
         [psi,p] = updatePosition(p(1), p(2), va, psi, psidot, 0.01);
         pos = [pos;p];
-        plot(p(1), p(2), 'rx')
-        hold on
+%         plot(p(1), p(2), 'rx')
+%         hold on
         distanceToGoal = norm(p - targetWaypoint);
-        jj = jj+1;
+        %jj = jj+1;
     end
 end
 
 
-%  plot(pos(:,1), pos(:,2))
-%  hold on
+ plot(pos(:,1), pos(:,2),'r')
+ hold on
 
 
 %figure(2)

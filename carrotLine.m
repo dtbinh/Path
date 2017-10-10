@@ -1,4 +1,4 @@
-function [psidot, d] = carrotLine(Wi, Wii, p, psi, del, va, k, Rmin, vw, psiw, cond)
+function [psidot, d] = carrotLine(Wi, Wii, p, psi, del, va, k, Rmin, vw, psiw)
 
 % % Wi = [0, 0];
 % % Wii = [300, 300];
@@ -10,10 +10,6 @@ function [psidot, d] = carrotLine(Wi, Wii, p, psi, del, va, k, Rmin, vw, psiw, c
 % % Rmin = 3*va;
 % % vw = 0;
 % % psiw = 0;
-
-if cond
-    cond
-end
 
 
 Ru = pdist([Wi;p]);
@@ -27,8 +23,8 @@ R = sqrt(Ru^2-(Ru*sind(beta))^2);
 
 d = Ru*sin(theta - thetau);
 
-xt = (R+del)*cosd(theta);
-yt = (R+del)*sind(theta);
+xt =  Wi(1)+(R+del)*cosd(theta);
+yt =  Wi(2)+(R+del)*sind(theta);
 s = [xt,yt];
 
 psid = atan2d(yt-p(2), xt-p(1));
