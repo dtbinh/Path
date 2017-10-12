@@ -27,9 +27,17 @@ xt =  Wi(1)+(R+del)*cosd(theta);
 yt =  Wi(2)+(R+del)*sind(theta);
 s = [xt,yt];
 
-psid = atan2d(yt-p(2), xt-p(1));
-psid = psid + (psid<0)*360;
-psidot = k*(psid-psi);
+psid1 = atan2d(yt-p(2), xt-p(1));
+psid2 = psid1 + (psid1<0)*360;
+psidot1 = k*(psid1-psi);
+psidot2 = k*(psid2-psi);
+
+if abs(psidot1)<abs(psidot2)
+    psidot = psidot1;
+else
+    psidot = psidot2;
+end
+
 u = psidot*va;
 
 %accounting for Rmin and umax
