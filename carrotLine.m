@@ -28,7 +28,7 @@ yt =  Wi(2)+(R+del)*sind(theta);
 s = [xt,yt];
 
 psid = atan2d(yt-p(2), xt-p(1));
-
+psid = psid + (psid<0)*360;
 psidot = k*(psid-psi);
 u = psidot*va;
 
